@@ -33,7 +33,7 @@ input,select{font:inherit}
 <main>
   <section id="pocetna" data-screen-label="Početna" style="position:relative;background:#F1E1DE {{ heroBgImg }} {{ heroBgPos }} / {{ heroBgSize }} no-repeat;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;align-items:{{ heroAlign }}">
     <header style="position:fixed;top:0;left:0;right:0;z-index:20;padding:{{ navGap }} {{ navSide }} 0;transition:padding .35s ease;pointer-events:none">
-  <div style="pointer-events:auto;max-width:1240px;margin:0 auto;padding:{{ navPad }};background:{{ navBg }};border:1px solid {{ navBorder }};border-radius:999px;backdrop-filter:{{ navBlur }};-webkit-backdrop-filter:{{ navBlur }};transition:background .35s ease,border-color .35s ease,padding .35s ease,backdrop-filter .35s ease;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+  <div style="pointer-events:auto;max-width:{{ navMax }};margin:0 auto;padding:{{ navPad }};background:{{ navBg }};border:1px solid {{ navBorder }};border-radius:999px;backdrop-filter:{{ navBlur }};-webkit-backdrop-filter:{{ navBlur }};transition:background .35s ease,border-color .35s ease,padding .35s ease,backdrop-filter .35s ease;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
     <a href="#pocetna" aria-label="Jelena frizerski salon, početna" style="display:block">
       <img src="assets/logo-jelena-transparent.png" alt="Jelena frizerski salon" style="display:block;width:{{ logoW }};height:auto;filter:{{ logoFilter }};transition:width .35s ease,filter .35s ease">
     </a>
@@ -181,8 +181,8 @@ input,select{font:inherit}
   </section>
 </main>
 
-<footer style="background:#F3E7E6;border-top:1px solid #D9C8C3;padding:16px 24px">
-  <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:{{ footDir }};justify-content:{{ footJustify }};align-items:center;text-align:{{ footAlign }};gap:{{ footGap }};flex-wrap:wrap;font-size:14px;color:#5A4A4E">
+<footer style="background:#F3E7E6;border-top:1px solid #D9C8C3;padding:16px {{ footSide }}">
+  <div style="max-width:none;margin:0 auto;display:flex;flex-direction:{{ footDir }};justify-content:{{ footJustify }};align-items:center;text-align:{{ footAlign }};gap:{{ footGap }};flex-wrap:wrap;font-size:14px;color:#5A4A4E">
     <img src="assets/logo-jelena-transparent.png" alt="Jelena frizerski salon" style="display:block;width:120px;height:auto">
     <div style="display:flex;gap:{{ footInfoGap }};flex-wrap:wrap;justify-content:center">
       <span>Gramšijeva 6, Beograd</span>
@@ -322,6 +322,8 @@ class Component extends DCLogic {
       navBorder: sc ? '#D9C8C3' : 'transparent',
       navText: '#4A3A3E',
       logoFilter: 'none',
+      navMax: (sc && !m) ? '1240px' : '100%',
+      footSide: m ? '24px' : '32px',
       navPad: m ? (sc ? '6px 6px 6px 16px' : '10px 6px 10px 10px') : (sc ? '6px 10px 6px 28px' : '16px 16px'),
       navGap: sc ? '12px' : '0px',
       logoW: m ? (sc ? '96px' : '120px') : (sc ? '120px' : 'clamp(150px,18vw,210px)'),
