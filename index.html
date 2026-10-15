@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#FBF8F7;color:#2B2225;font-family:'Jost',sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#7A4E58;text-decoration:none}
+a:hover{color:#5E3B44}
+input,select{font:inherit}
+@keyframes ringSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes scTravel{from{transform:translateX(-90px)}to{transform:translateX(100%)}}
+@keyframes scBladeA{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-18deg)}}
+@keyframes scBladeB{0%,100%{transform:rotate(0deg)}50%{transform:rotate(18deg)}}
+@keyframes menuPanelIn{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes menuItemIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){[data-ring],[data-sc],[data-mi]{animation:none!important}}
+</style>
+</helmet>
+
+
+
+<main>
+  <section id="pocetna" data-screen-label="Početna" style="position:relative;background:#F1E1DE {{ heroBgImg }} {{ heroBgPos }} / {{ heroBgSize }} no-repeat;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;align-items:{{ heroAlign }}">
+    <header style="position:fixed;top:0;left:0;right:0;z-index:20;padding:{{ navGap }} {{ navSide }} 0;transition:padding .35s ease;pointer-events:none">
+  <div style="pointer-events:auto;max-width:1240px;margin:0 auto;padding:{{ navPad }};background:{{ navBg }};border:1px solid {{ navBorder }};border-radius:999px;backdrop-filter:{{ navBlur }};-webkit-backdrop-filter:{{ navBlur }};transition:background .35s ease,border-color .35s ease,padding .35s ease,backdrop-filter .35s ease;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <a href="#pocetna" aria-label="Jelena frizerski salon, početna" style="display:block">
+      <img src="assets/logo-jelena-transparent.png" alt="Jelena frizerski salon" style="display:block;width:{{ logoW }};height:auto;filter:{{ logoFilter }};transition:width .35s ease,filter .35s ease">
+    </a>
+    <nav style="display:{{ navLinksDisplay }};align-items:center;gap:32px;flex-wrap:wrap;font-size:15px">
+      <a href="#pocetna" onClick="{{ go.pocetna }}" style="color:{{ navC.pocetna }};font-weight:{{ navW.pocetna }};padding:4px 0;transition:color .3s ease">Početna</a>
+      <a href="#usluge" onClick="{{ go.usluge }}" style="color:{{ navC.usluge }};font-weight:{{ navW.usluge }};padding:4px 0;transition:color .3s ease">Usluge</a>
+      <a href="#o-nama" onClick="{{ go.onama }}" style="color:{{ navC.onama }};font-weight:{{ navW.onama }};padding:4px 0;transition:color .3s ease">O nama</a>
+      <a href="#kontakt" onClick="{{ go.kontakt }}" style="color:{{ navC.kontakt }};font-weight:{{ navW.kontakt }};padding:4px 0;transition:color .3s ease">Kontakt</a>
+      <a href="#kontakt" style="position:relative;display:inline-flex;padding:2px;border-radius:999px;overflow:hidden;background:#B8957A;isolation:isolate">{{ ring }}<span style="position:relative;z-index:1;display:inline-flex;align-items:center;background:#94636D;color:#FFFFFF;padding:9px 20px;border-radius:999px;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500" style-hover="background:#7A4E58;color:#FFFFFF">Zakaži termin</span></a>
+    </nav>
+    <button type="button" aria-label="{{ burgerLabel }}" aria-expanded="{{ menuOpen }}" onClick="{{ toggleMenu }}" style="display:{{ burgerDisplay }};width:44px;height:44px;border-radius:999px;border:1px solid #C9979F;background:rgba(251,248,247,0.7);align-items:center;justify-content:center;cursor:pointer;padding:0">
+      <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="#7A4E58" stroke-width="1.4" stroke-linecap="round"><path d="M1 1h18M1 7h18M1 13h18"></path></svg>
+      </sc-if>
+      <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#7A4E58" stroke-width="1.4" stroke-linecap="round"><path d="M2 2l12 12M14 2 2 14"></path></svg>
+      </sc-if>
+    </button>
+  </div>
+  <sc-if value="{{ showMobileMenu }}" hint-placeholder-val="{{ false }}">
+    <div data-mi="" style="pointer-events:auto;max-width:1240px;margin:8px auto 0;background:rgba(243,231,230,0.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #D9C8C3;border-radius:20px;padding:8px 22px 22px;display:flex;flex-direction:column;transform-origin:top center;animation:menuPanelIn .28s ease-out both">
+      <a href="#pocetna" onClick="{{ goMob.pocetna }}" style="padding:15px 0;border-bottom:1px solid #E2CFCB;font-size:17px;color:{{ navC.pocetna }};font-weight:{{ navW.pocetna }};animation:menuItemIn .38s ease-out both;animation-delay:0.08s" data-mi="">Početna</a>
+      <a href="#usluge" onClick="{{ goMob.usluge }}" style="padding:15px 0;border-bottom:1px solid #E2CFCB;font-size:17px;color:{{ navC.usluge }};font-weight:{{ navW.usluge }};animation:menuItemIn .38s ease-out both;animation-delay:0.15s" data-mi="">Usluge</a>
+      <a href="#o-nama" onClick="{{ goMob.onama }}" style="padding:15px 0;border-bottom:1px solid #E2CFCB;font-size:17px;color:{{ navC.onama }};font-weight:{{ navW.onama }};animation:menuItemIn .38s ease-out both;animation-delay:0.22s" data-mi="">O nama</a>
+      <a href="#kontakt" onClick="{{ goMob.kontakt }}" style="padding:15px 0;border-bottom:1px solid #E2CFCB;font-size:17px;color:{{ navC.kontakt }};font-weight:{{ navW.kontakt }};animation:menuItemIn .38s ease-out both;animation-delay:0.29s" data-mi="">Kontakt</a>
+      <a href="tel:+381113195912" data-mi="" style="animation:menuItemIn .38s ease-out both;animation-delay:.38s;margin-top:20px;display:flex;justify-content:center;background:#94636D;color:#FFFFFF;padding:15px 20px;border-radius:999px;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500">Pozovi i zakaži termin</a>
+    </div>
+  </sc-if>
+</header>
+    <div aria-hidden="true" style="display:{{ heroOverlay }};position:absolute;inset:0;background:linear-gradient(180deg,rgba(241,225,222,0.55) 0%,rgba(241,225,222,0.82) 45%,rgba(241,225,222,0.35) 100%)"></div>
+    <div aria-hidden="true" style="display:{{ heroFade }};position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#F1E1DE 0%,#F1E1DE 18%,rgba(241,225,222,0.85) 23%,rgba(241,225,222,0) 34%)"></div>
+    <div style="position:relative;max-width:1240px;width:100%;margin:0 auto;padding:{{ heroPad }}">
+      <div style="max-width:540px">
+        <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:400;font-size:{{ heroH1 }};line-height:1.12;letter-spacing:-0.01em;color:#7A4E58;text-wrap:balance">Vaša <span style="font-family:'Great Vibes',cursive;font-weight:400;font-size:1.45em;line-height:0.8;letter-spacing:0.02em;color:#7A4E58;display:inline-block;margin-left:0.08em;padding-right:0.08em">lepota</span><br>u sigurnim rukama</h1>
+        <p style="margin:22px 0 0;font-size:{{ heroP }};line-height:1.6;max-width:42ch;color:#5A4A4E;text-wrap:pretty">Profesionalne frizerske usluge, personalizovan pristup i besprekoran rezultat.</p>
+        <sc-if value="{{ mobHeroBtn }}" hint-placeholder-val="{{ false }}">
+          <a href="tel:+381113195912" style="margin-top:28px;position:relative;display:inline-flex;padding:2px;border-radius:999px;overflow:hidden;background:#B8957A;isolation:isolate">{{ ring }}<span style="position:relative;z-index:1;display:inline-flex;align-items:center;background:#94636D;color:#FFFFFF;padding:14px 28px;border-radius:999px;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500">Zakaži termin</span></a>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <section id="usluge" data-screen-label="Usluge" style="background:#EEDCDC;padding:clamp(64px,9vw,120px) 24px">
+    <div style="max-width:1280px;margin:0 auto">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:48px">
+        <div>
+          <div style="display:flex;align-items:center;gap:20px;margin-bottom:20px">
+            <span style="font-size:14px;letter-spacing:0.22em;text-transform:uppercase;color:#C9979F">Usluge</span>
+            <span style="width:72px;height:1px;background:#C9979F"></span>
+          </div>
+          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(36px,4.4vw,52px);line-height:1.08;color:#7A4E58">Šta radimo</h2>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ cardCols }};gap:20px;align-items:stretch">
+        <sc-for list="{{ serviceCards }}" as="c" hint-placeholder-count="4">
+          <div style="background:#F7ECEB;border:1px solid #E2CFCB;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s ease" style-hover="transform:scale(1.03)">
+            <div style="width:100%;aspect-ratio:3/2;background-color:#E6CDCE;background-repeat:no-repeat;background-image:{{ c.bgImg }};background-size:{{ c.bgSize }};background-position:{{ c.bgPos }}" role="img" aria-label="{{ c.title }}"></div>
+            <div style="padding:22px 20px 26px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px">
+                <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:26px;line-height:1.1;color:#7A4E58;white-space:nowrap">{{ c.title }}</h3>
+                <span style="font-size:13px;color:#94636D;white-space:nowrap">{{ c.price }}</span>
+              </div>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#5A4A4E;text-wrap:pretty">{{ c.desc }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="o-nama" data-screen-label="O nama" style="background:#FBF6F5;padding:clamp(72px,9vw,120px) 24px">
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:{{ onamaGap }};align-items:start">
+      <div style="position:relative;padding:{{ imgWrapPad }}">
+        <img src="assets/o-nama-frizura.png" alt="Talasasta niska punđa iz salona Jelena" style="display:block;width:100%;aspect-ratio:5/4;object-fit:cover;object-position:35% center;border-radius:8px">
+        <div style="position:{{ missionPos }};left:0;bottom:-36px;width:{{ missionW }};margin:{{ missionMargin }};background:#F6ECEB;border:1px solid #EADBD8;border-radius:6px;padding:{{ missionPad }}">
+          <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:{{ missionH3 }};color:#7A4E58">Naša misija</h3>
+          <div style="width:{{ missionLine }};height:1px;background:#C9979F;margin:{{ missionLineM }}"></div>
+          <p style="margin:0;font-size:{{ missionP }};line-height:1.6;color:#5A4A4E;text-wrap:pretty">Naš cilj je da svaka klijentkinja iz salona izađe sa osmehom, zadovoljna i sa frizurom koja ističe njenu prirodnu lepotu.</p>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:20px;margin-bottom:20px">
+          <span style="font-size:14px;letter-spacing:0.22em;text-transform:uppercase;color:#C9979F">Ko smo mi</span>
+          <span style="width:72px;height:1px;background:#C9979F"></span>
+        </div>
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,4.6vw,58px);line-height:1.08;color:#7A4E58;text-wrap:balance">Profesionalnost,<br>strast i ljubav prema kosi</h2>
+        <p style="margin:28px 0 0;font-size:17px;line-height:1.7;max-width:58ch;color:#5A4A4E;text-wrap:pretty">Frizerski salon Jelena nastao je iz ljubavi prema lepoti, stilu i negi kose. Naš cilj je da svakoj klijentkinji pružimo vrhunsku uslugu, uz individualan pristup i pažnju prema svakom detalju.</p>
+        <p style="margin:18px 0 0;font-size:17px;line-height:1.7;max-width:58ch;color:#5A4A4E;text-wrap:pretty">Verujemo da je kosa više od estetike - ona je izraz ličnosti, samopouzdanja i ženskosti. Zato se trudimo da uvek budemo u korak sa najnovijim trendovima i tehnikama, kako bismo vam pružili najbolje i najkvalitetnije rezultate.</p>
+        <div style="display:{{ featDisplay }};grid-template-columns:repeat(3,minmax(0,1fr));flex-wrap:wrap;gap:16px 0;margin:{{ featMargin }}">
+          <div style="display:flex;flex-direction:{{ featDir }};text-align:{{ featAlign }};align-items:center;gap:10px;padding:{{ featItemPad }};border-right:1px solid #E2CFCB;">
+            <div style="width:46px;height:46px;flex:none;border-radius:999px;background:#F3E3E2;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#7A4E58" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></div>
+            <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;line-height:1.45;color:#7A4E58;white-space:{{ featWs }}">Individualan<br>pristup</span>
+          </div>
+          <div style="display:flex;flex-direction:{{ featDir }};text-align:{{ featAlign }};align-items:center;gap:10px;padding:{{ featItemPad }};border-right:1px solid #E2CFCB;">
+            <div style="width:46px;height:46px;flex:none;border-radius:999px;background:#F3E3E2;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#7A4E58" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10l4 5-9 11L3 9z"></path><path d="M3 9h18M9 4l3 16 3-16"></path></svg></div>
+            <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;line-height:1.45;color:#7A4E58;white-space:{{ featWs }}">Kvalitetne<br>proizvode</span>
+          </div>
+          <div style="display:flex;flex-direction:{{ featDir }};text-align:{{ featAlign }};align-items:center;gap:10px;padding:{{ featItemPad }};">
+            <div style="width:46px;height:46px;flex:none;border-radius:999px;background:#F3E3E2;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#7A4E58" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"></path></svg></div>
+            <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;line-height:1.45;color:#7A4E58;white-space:{{ featWs }}">Moderne<br>tehnike</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <div data-screen-label="Baner" aria-hidden="true" style="background:#7A4E58;padding:14px 0;overflow:hidden">
+    <div ref="{{ bannerRef }}" style="position:relative;height:40px">{{ scissorsBanner }}</div>
+  </div>
+
+  <section id="kontakt" data-screen-label="Kontakt" style="padding:clamp(64px,9vw,120px) 24px">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:56px">
+      <div>
+        <div style="display:flex;align-items:center;gap:20px;margin-bottom:20px">
+          <span style="font-size:14px;letter-spacing:0.22em;text-transform:uppercase;color:#C9979F">Kontakt</span>
+          <span style="width:72px;height:1px;background:#C9979F"></span>
+        </div>
+        <h2 style="margin:0 0 40px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(36px,4.4vw,52px);line-height:1.08;color:#7A4E58">Gde smo</h2>
+        <div style="display:grid;gap:0;border-top:1px solid #D9C8C3">
+          <div style="padding:20px 0;border-bottom:1px solid #D9C8C3">
+            <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#7A4E58">Adresa</div>
+            <div style="margin-top:6px;font-size:17px;line-height:1.7;color:#5A4A4E">Gramšijeva 6, Beograd</div>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid #D9C8C3">
+            <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#7A4E58">Telefon</div>
+            <a href="tel:+381113195912" style="display:block;margin-top:6px;font-size:17px;line-height:1.7;color:#5A4A4E">011 319 5912</a>
+          </div>
+          <div style="padding:20px 0;border-bottom:1px solid #D9C8C3">
+            <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:#7A4E58">Radno vreme</div>
+            <div style="margin-top:10px;display:grid;grid-template-columns:auto 1fr;gap:6px 24px;font-size:17px;line-height:1.7;color:#5A4A4E">
+              <span>Ponedeljak - subota</span><span>09:00 - 20:00</span>
+              <span>Nedelja</span><span>14:00 - 20:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="border:1px solid #D9C8C3;border-radius:6px;overflow:hidden;display:flex;flex-direction:column">
+        <iframe title="Mapa: Gramšijeva 6, Beograd" src="https://maps.google.com/maps?q=Frizerski%20Salon%20Jelena%4044.8297417%2C20.4152431&amp;ll=44.8297417,20.4152431&amp;z=17&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="flex:1;width:100%;min-height:{{ mapH }};border:0;display:block"></iframe>
+        <a href="https://www.google.com/maps/place/Frizerski+Salon+Jelena/@44.8297417,20.4152431,17z/data=!4m6!3m5!1s0x475a6574880b0883:0xc7ff976cb5c7d147!8m2!3d44.8297417!4d20.4152431!16s%2Fg%2F11hcdyws1d" target="_blank" rel="noopener" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 12px;padding:14px 18px;background:#F3E7E6;border-top:1px solid #D9C8C3;font-size:15px;color:#7A4E58">Gramšijeva 6, Beograd<span style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase">Otvori u mapama</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer style="background:#F3E7E6;border-top:1px solid #D9C8C3;padding:16px 24px">
+  <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:{{ footDir }};justify-content:{{ footJustify }};align-items:center;text-align:{{ footAlign }};gap:{{ footGap }};flex-wrap:wrap;font-size:14px;color:#5A4A4E">
+    <img src="assets/logo-jelena-transparent.png" alt="Jelena frizerski salon" style="display:block;width:120px;height:auto">
+    <div style="display:flex;gap:{{ footInfoGap }};flex-wrap:wrap;justify-content:center">
+      <span>Gramšijeva 6, Beograd</span>
+      <a href="tel:+381113195912">011 319 5912</a>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showForm&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Zakazivanje&quot;},&quot;showPortfolio&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sekcije&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    this._last = window.scrollY;
+    this._onScroll = () => {
+      const y = window.scrollY;
+      const scrolled = y > 40;
+      if (scrolled !== this.state.scrolled) this.setState({ scrolled });
+      if (this._lockUntil && Date.now() < this._lockUntil) return;
+      let active = 'pocetna';
+      [['usluge','usluge'],['o-nama','onama'],['kontakt','kontakt']].forEach(([id,k]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.35) active = k; });
+      if ((window.innerHeight + y) >= document.documentElement.scrollHeight - 4) active = 'kontakt';
+      if (active !== this.state.active) this.setState({ active });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onResize = () => { const w = window.innerWidth; const cols = w > 900 ? 4 : (w > 560 ? 2 : 1); if (cols !== this.state.cardColsN) this.setState({ cardColsN: cols }); const d = Math.round(((w + 90) / 52) * 10) / 10; if (d !== this.state.travelDur) this.setState({ travelDur: d }); };
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+    this._mq = window.matchMedia('(max-width: 768px)');
+    this._onMq = () => this.setState({ mob: this._mq.matches, menuOpen: this._mq.matches ? this.state.menuOpen : false });
+    this._mq.addEventListener('change', this._onMq);
+    this._onMq();
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) this._hairT = setInterval(() => this.spawnHair(), 225);
+    this._onScroll();
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); window.removeEventListener('resize', this._onResize); this._mq && this._mq.removeEventListener('change', this._onMq); clearInterval(this._hairT); }
+  scRef = React.createRef();
+  hairRef = React.createRef();
+  bannerRef = React.createRef();
+  spawnHair() {
+    const sc = this.scRef.current, layer = this.hairRef.current, box = this.bannerRef.current;
+    if (!sc || !layer || !box || document.hidden) return;
+    const b = box.getBoundingClientRect(), s = sc.getBoundingClientRect();
+    if (b.bottom < 0 || b.top > window.innerHeight) return;
+    const x = s.left - b.left + s.width * 0.5;
+    if (x < 0 || x > b.width) return;
+    const colors = ['#E8CBA0', '#D9B48A', '#F3E7E6', '#C9A877'];
+    const n = 2 + Math.floor(Math.random() * 2);
+    for (let i = 0; i < n; i++) {
+      const el = document.createElement('span');
+      const len = 6 + Math.random() * 7, rot = -60 + Math.random() * 120;
+      el.style.cssText = 'position:absolute;top:20px;left:' + (x + (Math.random() * 10 - 5)) + 'px;width:1px;height:' + len + 'px;border-radius:1px;background:' + colors[(Math.random() * colors.length) | 0] + ';transform-origin:50% 0';
+      layer.appendChild(el);
+      const dx = Math.random() * 16 - 8, fall = 22 + Math.random() * 14;
+      const a = el.animate([
+        { transform: 'translate(0,0) rotate(' + rot + 'deg)', opacity: 0.95 },
+        { transform: 'translate(' + dx * 0.6 + 'px,' + fall * 0.5 + 'px) rotate(' + (rot + 40) + 'deg)', opacity: 0.8, offset: 0.5 },
+        { transform: 'translate(' + dx + 'px,' + fall + 'px) rotate(' + (rot + 80) + 'deg)', opacity: 0 }
+      ], { duration: 900 + Math.random() * 500, easing: 'cubic-bezier(.3,.1,.6,1)' });
+      a.onfinish = () => el.remove();
+    }
+  }
+  state = { cardColsN: 4, travelDur: 9, scrolled: false, navHidden: false, sent: false, mob: false, menuOpen: false, active: 'pocetna' };
+  renderVals() {
+    const E = React.createElement, C = '#EEDCDC';
+    const blade = (rx, ry, d, tang, anim) => E('g', { 'data-sc': '', style: { transformOrigin: '26px 20px', transformBox: 'view-box', animation: anim + ' .45s ease-in-out infinite' } },
+      E('circle', { cx: rx, cy: ry, r: 5.2, fill: 'none', stroke: C, strokeWidth: 1.9 }),
+      tang ? E('path', { d: tang, fill: 'none', stroke: C, strokeWidth: 1.6, strokeLinecap: 'round' }) : null,
+      E('path', { d: d, fill: C }));
+    const scissorsBanner = E(React.Fragment, null,
+      E('div', { style: { position: 'absolute', left: 0, right: 0, top: '50%', borderTop: '1px dashed ' + C, opacity: 0.55 } }),
+      E('div', { ref: this.hairRef, style: { position: 'absolute', inset: 0, pointerEvents: 'none' } }),
+      E('div', { 'data-sc': '', style: { position: 'absolute', inset: 0, animation: 'scTravel ' + this.state.travelDur + 's linear infinite' } },
+        E('div', { style: { position: 'absolute', left: '35px', top: '50%', width: '200vw', height: '1px', background: C, opacity: 0.75 } }),
+        E('svg', { ref: this.scRef, width: 70, height: 54, viewBox: '0 0 52 40', style: { position: 'absolute', left: 0, top: '-7px', overflow: 'visible' } },
+          blade(15.1, 7, 'M18.7 11.3 L25.3 21.3 L48.9 32.2 L26.7 18.7 Z', null, 'scBladeA'),
+          blade(15.1, 33, 'M18.7 28.7 L25.3 18.7 L48.9 7.8 L26.7 21.3 Z', 'M11 37.6 L8.4 40.6', 'scBladeB'),
+          E('circle', { cx: 26, cy: 20, r: 1.4, fill: '#7A4E58' }))));
+    const ring = React.createElement('span', { 'data-ring': '', 'aria-hidden': 'true', style: { position: 'absolute', left: '50%', top: '50%', width: '220%', aspectRatio: '1 / 1', background: 'conic-gradient(from 0deg, rgba(232,203,160,0) 0deg, #E8CBA0 40deg, #FFF8EC 70deg, #E8CBA0 100deg, rgba(232,203,160,0) 140deg, rgba(232,203,160,0) 180deg, #E8CBA0 220deg, #FFF8EC 250deg, #E8CBA0 280deg, rgba(232,203,160,0) 320deg)', animation: 'ringSpin 4.5s linear infinite', zIndex: 0, pointerEvents: 'none' } });
+    const showForm = this.props.showForm ?? true;
+    const sc = this.state.scrolled, m = this.state.mob, mo = m && this.state.menuOpen;
+    const keys = ['pocetna','usluge','onama','kontakt'], act = this.state.active;
+    const navC = {}, navU = {}, navW = {}, go = {}, goMob = {};
+    keys.forEach(k => {
+      const on = k === act;
+      navC[k] = on ? '#7A4E58' : '#4A3A3E';
+      navU[k] = on ? '#7A4E58' : 'transparent';
+      navW[k] = on ? '500' : '400';
+      go[k] = () => { this._lockUntil = Date.now() + 900; this.setState({ active: k }); };
+      goMob[k] = () => { this._lockUntil = Date.now() + 900; this.setState({ active: k, menuOpen: false }); };
+    });
+    return {
+      navC, navU, navW, go, goMob,
+      navLinksDisplay: m ? 'none' : 'flex',
+      burgerDisplay: m ? 'flex' : 'none',
+      menuOpen: mo, menuClosed: !mo, showMobileMenu: mo,
+      burgerLabel: mo ? 'Zatvori meni' : 'Otvori meni',
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      navSide: m ? '10px' : '16px',
+      heroOverlay: 'none',
+      heroFade: 'none',
+      heroAlign: m ? 'flex-start' : 'center',
+      heroBgImg: m ? "url('assets/hero-mobile.png')" : "url('assets/hero-salon.png')",
+      mobHeroBtn: m,
+      heroBgSize: m ? 'auto 112%' : 'cover',
+      heroPad: m ? 'max(110px, calc(57svh - 260px)) 22px 72px' : 'clamp(150px,16vw,190px) 32px clamp(64px,9vw,120px)',
+      heroH1: m ? 'clamp(34px,10vw,44px)' : 'clamp(44px,5.6vw,70px)',
+      heroP: m ? '16px' : '18px',
+      heroBgPos: m ? '75% bottom' : '92% center',
+      cardPad: m ? '28px 22px 20px' : '36px 32px 28px',
+      imgWrapPad: m ? '0' : '0 0 clamp(70px,8vw,96px) clamp(0px,3vw,40px)',
+      missionPos: m ? 'relative' : 'absolute',
+      missionW: m ? 'auto' : 'min(78%,420px)',
+      missionMargin: m ? '-64px 28px 0' : '0',
+      missionPad: m ? '16px 18px 18px' : '28px 32px 30px',
+      missionH3: m ? '22px' : '28px',
+      footDir: m ? 'column' : 'row',
+      footJustify: m ? 'center' : 'space-between',
+      footAlign: m ? 'center' : 'left',
+      footGap: m ? '12px' : '20px',
+      footInfoGap: m ? '6px 18px' : '24px',
+      onamaGap: m ? '64px' : 'clamp(40px,5vw,64px)',
+      missionP: m ? '14px' : '16px',
+      missionLine: m ? '48px' : '64px',
+      missionLineM: m ? '10px 0 12px' : '14px 0 18px',
+      featDisplay: m ? 'grid' : 'flex',
+      featMargin: m ? '36px 0 0' : '40px 0 0 -14px',
+      featDir: m ? 'column' : 'row',
+      featAlign: m ? 'center' : 'left',
+      featItemPad: m ? '4px 6px' : '4px 14px',
+      featWs: m ? 'normal' : 'nowrap',
+      mapH: m ? '280px' : '360px',
+      ring,
+      scissorsBanner,
+      bannerRef: this.bannerRef,
+      navBg: sc ? 'rgba(243,231,230,0.6)' : 'rgba(243,231,230,0)',
+      navBlur: sc ? 'blur(10px)' : 'none',
+      navBorder: sc ? '#D9C8C3' : 'transparent',
+      navText: '#4A3A3E',
+      logoFilter: 'none',
+      navPad: m ? (sc ? '6px 6px 6px 16px' : '10px 6px 10px 10px') : (sc ? '6px 10px 6px 28px' : '16px 16px'),
+      navGap: sc ? '12px' : '0px',
+      logoW: m ? (sc ? '96px' : '120px') : (sc ? '120px' : 'clamp(150px,18vw,210px)'),
+      showForm,
+      showPortfolio: this.props.showPortfolio ?? true,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      submit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      cardCols: 'repeat(' + this.state.cardColsN + ',minmax(0,1fr))',
+      serviceCards: [
+        { bgSize: '125%', bgPos: '0% 40%', bgImg: "url('assets/usluga-sisanje.png')", img: 'assets/usluga-sisanje.png', title: 'Žensko šišanje', price: 'od [cena] RSD', desc: 'Uredite svoju frizuru uz profesionalan pristup i savet prilagođen vašem licu i stilu.' },
+        { bgSize: '130%', bgPos: '0% 30%', bgImg: "url('assets/usluga-farbanje.png')", img: 'assets/usluga-farbanje.png', title: 'Farbanje kose', price: 'od [cena] RSD', desc: 'Pružamo vrhunske usluge farbanja koristeći kvalitetne i proverene proizvode.' },
+        { bgSize: 'cover', bgPos: 'center', bgImg: "url('assets/usluga-nega.png')", img: 'assets/usluga-nega.png', title: 'Pramenovi', price: 'od [cena] RSD', desc: 'Za prirodan i osvežen izgled, pramenovi su idealan izbor za više dimenzije i sjaja.' },
+        { bgSize: 'cover', bgPos: 'center', bgImg: "url('assets/usluga-pramenovi.png')", img: 'assets/usluga-pramenovi.png', title: 'Nega kose', price: 'od [cena] RSD', desc: 'Dubinska nega za zdraviju, jaču i sjajniju kosu, jer svaka kosa zaslužuje posebnu pažnju.' }
+      ],
+      serviceGroups: [
+        { bg: '#7A4E58', line: '#E8CBA0', title2: '#E6CDCE', numC: '#E8CBA0', div: '#C9A877', text: '#E6CDCE', price: '#E6CDCE', muted: '#E6CDCE', num: '01', title: 'Šišanje', intro: 'Pre šišanja kratko pričamo o tome koliko vremena imate za kosu ujutru.', items: [
+          { name: 'Žensko šišanje', desc: 'Pranje, šišanje i feniranje. Ako puštate kosu, sečemo samo vrhove i to kažemo unapred.', price: 'od [cena] RSD' },
+          { name: 'Muško šišanje', desc: 'Makazama ili mašinicom, sa prelazom kakav volite. Bradu sređujemo uz šišanje.', price: 'od [cena] RSD' },
+          { name: 'Dečje šišanje', desc: 'Za decu do 12 godina. Dete može da sedi u krilu roditelja.', price: 'od [cena] RSD' }
+        ] },
+        { bg: '#7A4E58', line: '#E8CBA0', title2: '#E6CDCE', numC: '#E8CBA0', div: '#C9A877', text: '#E6CDCE', price: '#E6CDCE', muted: '#E6CDCE', num: '02', title: 'Boja i nega', intro: 'Tačnu cenu kažemo kad vidimo dužinu i gustinu kose.', items: [
+          { name: 'Farbanje', desc: 'Izrastak ili cela dužina. Prvi put radimo test boje na pramenu iza uha.', price: 'od [cena] RSD' },
+          { name: 'Pramenovi i balayage', desc: 'Svetliji tonovi koji izrastaju mekano, pa ne morate da dolazite svaki mesec.', price: 'od [cena] RSD' },
+          { name: 'Nega kose', desc: 'Maske i tretmani za kosu posle farbanja, mora ili peglanja.', price: 'od [cena] RSD' }
+        ] },
+        { bg: '#7A4E58', line: '#E8CBA0', title2: '#E6CDCE', numC: '#E8CBA0', div: '#C9A877', text: '#E6CDCE', price: '#E6CDCE', muted: '#E6CDCE', num: '03', title: 'Svečano', intro: 'Za venčanja i mature zakažite što ranije, subote se brzo popune.', items: [
+          { name: 'Feniranje', desc: 'Ravno, talasi ili volumen. Dobro za dan pre slavlja ili sastanka.', price: 'od [cena] RSD' },
+          { name: 'Svečane frizure', desc: 'Punđe, pletenice i podignute frizure. Za venčanja dolazimo na probu nedelju dana ranije.', price: 'od [cena] RSD' }
+        ] }
+      ],
+      works: [
+        { ph: 'FOTOGRAFIJA: BOB FRIZURA', cap: 'Bob do brade, sa dužine ispod ramena' },
+        { ph: 'FOTOGRAFIJA: BALAYAGE', cap: 'Balayage na tamnoj kosi' },
+        { ph: 'FOTOGRAFIJA: MUŠKO ŠIŠANJE', cap: 'Kratak prelaz sa strane' },
+        { ph: 'FOTOGRAFIJA: SVEČANA PUNĐA', cap: 'Niska punđa za venčanje' },
+        { ph: 'FOTOGRAFIJA: FARBANJE IZRASTKA', cap: 'Pokrivanje sedih na izrastku' },
+        { ph: 'FOTOGRAFIJA: FENIRANJE TALASI', cap: 'Talasi feniranjem, bez figaroa' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
