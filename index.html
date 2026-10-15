@@ -121,15 +121,15 @@ input,select{font:inherit}
         </div>
         <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,4.6vw,58px);line-height:1.08;color:#7A4E58;text-wrap:balance">Profesionalnost,<br>strast i ljubav prema kosi</h2>
         <p style="margin:28px 0 0;font-size:17px;line-height:1.7;max-width:58ch;color:#5A4A4E;text-wrap:pretty">Frizerski salon Jelena nastao je iz ljubavi prema lepoti, stilu i negi kose. Naš cilj je da svakoj klijentkinji pružimo vrhunsku uslugu, uz individualan pristup i pažnju prema svakom detalju.</p>
-        <p style="margin:18px 0 0;font-size:17px;line-height:1.7;max-width:58ch;color:#5A4A4E;text-wrap:pretty">Verujemo da je kosa više od estetike - ona je izraz ličnosti, samopouzdanja i ženskosti. Zato se trudimo da uvek budemo u korak sa najnovijim trendovima i tehnikama, kako bismo vam pružili najbolje i najkvalitetnije rezultate.</p>
-        <div style="display:{{ featDisplay }};grid-template-columns:repeat(3,minmax(0,1fr));flex-wrap:wrap;gap:16px 0;margin:{{ featMargin }}">
+        <p style="margin:18px 0 0;font-size:17px;line-height:1.7;max-width:58ch;color:#5A4A4E;text-wrap:pretty">Verujemo da je kosa više od estetike - ona je izraz ličnosti, samopouzdanja i ženstvenosti. Zato se trudimo da uvek budemo u korak sa najnovijim trendovima i tehnikama, kako bismo vam pružili najbolje i najkvalitetnije rezultate.</p>
+        <div style="display:{{ featDisplay }};grid-template-columns:repeat(3,minmax(0,1fr));flex-wrap:wrap;justify-content:center;gap:16px 0;font-size:17px;max-width:{{ featMax }};margin:{{ featMargin }}">
           <div style="display:flex;flex-direction:{{ featDir }};text-align:{{ featAlign }};align-items:center;gap:10px;padding:{{ featItemPad }};border-right:1px solid #E2CFCB;">
             <div style="width:46px;height:46px;flex:none;border-radius:999px;background:#F3E3E2;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#7A4E58" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></div>
             <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;line-height:1.45;color:#7A4E58;white-space:{{ featWs }}">Individualan<br>pristup</span>
           </div>
           <div style="display:flex;flex-direction:{{ featDir }};text-align:{{ featAlign }};align-items:center;gap:10px;padding:{{ featItemPad }};border-right:1px solid #E2CFCB;">
             <div style="width:46px;height:46px;flex:none;border-radius:999px;background:#F3E3E2;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#7A4E58" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10l4 5-9 11L3 9z"></path><path d="M3 9h18M9 4l3 16 3-16"></path></svg></div>
-            <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;line-height:1.45;color:#7A4E58;white-space:{{ featWs }}">Kvalitetne<br>proizvode</span>
+            <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;line-height:1.45;color:#7A4E58;white-space:{{ featWs }}">Kvalitetni<br>proizvodi</span>
           </div>
           <div style="display:flex;flex-direction:{{ featDir }};text-align:{{ featAlign }};align-items:center;gap:10px;padding:{{ featItemPad }};">
             <div style="width:46px;height:46px;flex:none;border-radius:999px;background:#F3E3E2;display:flex;align-items:center;justify-content:center"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#7A4E58" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"></path></svg></div>
@@ -308,7 +308,8 @@ class Component extends DCLogic {
       missionLine: m ? '48px' : '64px',
       missionLineM: m ? '10px 0 12px' : '14px 0 18px',
       featDisplay: m ? 'grid' : 'flex',
-      featMargin: m ? '36px 0 0' : '40px 0 0 -14px',
+      featMargin: m ? '36px 0 0' : '40px 0 0',
+      featMax: m ? 'none' : '58ch',
       featDir: m ? 'column' : 'row',
       featAlign: m ? 'center' : 'left',
       featItemPad: m ? '4px 6px' : '4px 14px',
@@ -336,7 +337,7 @@ class Component extends DCLogic {
       serviceCards: [
         { bgSize: '125%', bgPos: '0% 40%', bgImg: "url('assets/usluga-sisanje.png')", img: 'assets/usluga-sisanje.png', title: 'Žensko šišanje', price: 'od [cena] RSD', desc: 'Uredite svoju frizuru uz profesionalan pristup i savet prilagođen vašem licu i stilu.' },
         { bgSize: '130%', bgPos: '0% 30%', bgImg: "url('assets/usluga-farbanje.png')", img: 'assets/usluga-farbanje.png', title: 'Farbanje kose', price: 'od [cena] RSD', desc: 'Pružamo vrhunske usluge farbanja koristeći kvalitetne i proverene proizvode.' },
-        { bgSize: 'cover', bgPos: 'center', bgImg: "url('assets/usluga-nega.png')", img: 'assets/usluga-nega.png', title: 'Pramenovi', price: 'od [cena] RSD', desc: 'Za prirodan i osvežen izgled, pramenovi su idealan izbor za više dimenzije i sjaja.' },
+        { bgSize: 'cover', bgPos: 'center', bgImg: "url('assets/usluga-nega.png')", img: 'assets/usluga-nega.png', title: 'Pramenovi', price: 'od [cena] RSD', desc: 'Za prirodan i osvežen izgled, pramenovi su idealan izbor za kosu sa više dubine i sjaja.' },
         { bgSize: 'cover', bgPos: 'center', bgImg: "url('assets/usluga-pramenovi.png')", img: 'assets/usluga-pramenovi.png', title: 'Nega kose', price: 'od [cena] RSD', desc: 'Dubinska nega za zdraviju, jaču i sjajniju kosu, jer svaka kosa zaslužuje posebnu pažnju.' }
       ],
       serviceGroups: [
