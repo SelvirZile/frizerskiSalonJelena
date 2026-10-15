@@ -32,10 +32,10 @@ input,select{font:inherit}
 
 <main>
   <section id="pocetna" data-screen-label="Početna" style="position:relative;background:#F1E1DE {{ heroBgImg }} {{ heroBgPos }} / {{ heroBgSize }} no-repeat;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;align-items:{{ heroAlign }}">
-    <header style="position:fixed;top:0;left:0;right:0;z-index:20;padding:{{ navGap }} {{ navSide }} 0;transition:padding .35s ease;pointer-events:none">
-  <div style="pointer-events:auto;max-width:{{ navMax }};margin:0 auto;padding:{{ navPad }};background:{{ navBg }};border:1px solid {{ navBorder }};border-radius:999px;backdrop-filter:{{ navBlur }};-webkit-backdrop-filter:{{ navBlur }};transition:background .35s ease,border-color .35s ease,padding .35s ease,backdrop-filter .35s ease;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <header style="position:fixed;top:0;left:0;right:0;z-index:20;padding:{{ navGap }} {{ navSide }} 0;transition:padding .55s cubic-bezier(.22,.61,.36,1);pointer-events:none">
+  <div style="pointer-events:auto;max-width:{{ navMax }};margin:0 auto;padding:{{ navPad }};background:{{ navBg }};border:1px solid {{ navBorder }};border-radius:999px;backdrop-filter:{{ navBlur }};-webkit-backdrop-filter:{{ navBlur }};transition:max-width .55s cubic-bezier(.22,.61,.36,1),background-color .55s cubic-bezier(.22,.61,.36,1),border-color .55s cubic-bezier(.22,.61,.36,1),padding .55s cubic-bezier(.22,.61,.36,1),backdrop-filter .55s cubic-bezier(.22,.61,.36,1),-webkit-backdrop-filter .55s cubic-bezier(.22,.61,.36,1);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
     <a href="#pocetna" aria-label="Jelena frizerski salon, početna" style="display:block">
-      <img src="assets/logo-jelena-transparent.png" alt="Jelena frizerski salon" style="display:block;width:{{ logoW }};height:auto;filter:{{ logoFilter }};transition:width .35s ease,filter .35s ease">
+      <img src="assets/logo-jelena-transparent.png" alt="Jelena frizerski salon" style="display:block;width:{{ logoW }};height:auto;filter:{{ logoFilter }};transition:width .55s cubic-bezier(.22,.61,.36,1),filter .55s cubic-bezier(.22,.61,.36,1)">
     </a>
     <nav style="display:{{ navLinksDisplay }};align-items:center;gap:32px;flex-wrap:wrap;font-size:15px">
       <a href="#pocetna" onClick="{{ go.pocetna }}" style="color:{{ navC.pocetna }};font-weight:{{ navW.pocetna }};padding:4px 0;transition:color .3s ease">Početna</a>
@@ -206,7 +206,7 @@ class Component extends DCLogic {
       if (active !== this.state.active) this.setState({ active });
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
-    this._onResize = () => { const w = window.innerWidth; const cols = w > 900 ? 4 : (w > 560 ? 2 : 1); if (cols !== this.state.cardColsN) this.setState({ cardColsN: cols }); const d = Math.round(((w + 90) / 52) * 10) / 10; if (d !== this.state.travelDur) this.setState({ travelDur: d }); };
+    this._onResize = () => { const w = window.innerWidth; if (this._vw !== w) { this._vw = w; this.forceUpdate(); } const cols = w > 900 ? 4 : (w > 560 ? 2 : 1); if (cols !== this.state.cardColsN) this.setState({ cardColsN: cols }); const d = Math.round(((w + 90) / 52) * 10) / 10; if (d !== this.state.travelDur) this.setState({ travelDur: d }); };
     window.addEventListener('resize', this._onResize);
     this._onResize();
     this._mq = window.matchMedia('(max-width: 768px)');
@@ -318,11 +318,11 @@ class Component extends DCLogic {
       scissorsBanner,
       bannerRef: this.bannerRef,
       navBg: sc ? 'rgba(243,231,230,0.6)' : 'rgba(243,231,230,0)',
-      navBlur: sc ? 'blur(10px)' : 'none',
+      navBlur: sc ? 'blur(10px)' : 'blur(0px)',
       navBorder: sc ? '#D9C8C3' : 'transparent',
       navText: '#4A3A3E',
       logoFilter: 'none',
-      navMax: (sc && !m) ? '1240px' : '100%',
+      navMax: (sc && !m) ? '1240px' : (this._vw ? this._vw + 'px' : '100%'),
       footSide: m ? '24px' : '20px',
       navPad: m ? (sc ? '6px 6px 6px 16px' : '10px 6px 10px 10px') : (sc ? '6px 10px 6px 28px' : '16px 4px'),
       navGap: sc ? '12px' : '0px',
